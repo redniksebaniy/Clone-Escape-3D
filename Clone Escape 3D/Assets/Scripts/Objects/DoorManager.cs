@@ -1,59 +1,63 @@
 using UnityEngine;
 using DG.Tweening;
+using CloneEscape.Audio;
 
-public class DoorManager : MonoBehaviour
+namespace CloneEscape.Objects
 {
-    [SerializeField]
-    private float deltaY;
-
-    [SerializeField]
-    private float moveTime;
-
-    private uint neededPlateCount = 0;
-    private uint currentPlateCount = 0;
-
-    private float closedPosY;
-    private float openedPosY;
-
-    [SerializeField]
-    private AudioClip _openClip;
-
-    [SerializeField]
-    private AudioClip _closeClip;
-
-    private void Start()
+    public class DoorManager : MonoBehaviour
     {
-        closedPosY = transform.position.y;
-        openedPosY = transform.position.y + deltaY;
-    }
+        [SerializeField]
+        private float deltaY;
 
-    public void IncNeededPlateCount() => neededPlateCount++;
+        [SerializeField]
+        private float moveTime;
 
-    public void IncCurrentPlateCount()
-    {
-        if (++currentPlateCount == neededPlateCount)
+        private uint neededPlateCount = 0;
+        private uint currentPlateCount = 0;
+
+        private float closedPosY;
+        private float openedPosY;
+
+        [SerializeField]
+        private AudioClip _openClip;
+
+        [SerializeField]
+        private AudioClip _closeClip;
+
+        private void Start()
         {
-            OpenDoor();
+            closedPosY = transform.position.y;
+            openedPosY = transform.position.y + deltaY;
         }
-    }
 
-    public void DecCurrentPlateCount()
-    {
-        if (currentPlateCount-- == neededPlateCount)
+        public void IncNeededPlateCount() => neededPlateCount++;
+
+        public void IncCurrentPlateCount()
         {
-            CloseDoor();
+            if (++currentPlateCount == neededPlateCount)
+            {
+                OpenDoor();
+            }
         }
-    }
 
-    private void OpenDoor()
-    {
-        transform.DOMoveY(openedPosY, moveTime).SetEase(Ease.InExpo);
-        AudioManager.Instance.AudioSource.PlayOneShot(_openClip);
-    }
+        public void DecCurrentPlateCount()
+        {
+            if (currentPlateCount-- == neededPlateCount)
+            {
+                CloseDoor();
+            }
+        }
 
-    private void CloseDoor()
-    {
-        transform.DOMoveY(closedPosY, moveTime).SetEase(Ease.OutBounce);
-        AudioManager.Instance.AudioSource.PlayOneShot(_closeClip);
+        private void OpenDoor()
+        {
+            transform.DOMoveY(openedPosY, moveTime).SetEase(Ease.InExpo);
+            AudioManager.Instance.AudioSource.PlayOneShot(_openClip);
+        }
+
+        private void CloseDoor()
+        {
+            transform.DOMoveY(closedPosY, moveTime).SetEase(Ease.OutBounce);
+            AudioManager.Instance.AudioSource.PlayOneShot(_closeClip);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using CloneEscape.UI.Model;
+using CloneEscape.Audio;
 
 namespace CloneEscape.UI.Controller
 {

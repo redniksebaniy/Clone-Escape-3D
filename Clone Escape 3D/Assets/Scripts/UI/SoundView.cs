@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using CloneEscape.Audio;
 
 public class SoundView : MonoBehaviour
 {

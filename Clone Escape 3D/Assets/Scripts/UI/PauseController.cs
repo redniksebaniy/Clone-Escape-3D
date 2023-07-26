@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using CloneEscape.UI.Panel;
 using CloneEscape.UI.Model;
+using CloneEscape.Audio;
 
 namespace CloneEscape.UI.Controller
 {
@@ -27,7 +28,6 @@ namespace CloneEscape.UI.Controller
         public void TooglePause(bool value)
         {
             pauseModel.IsPaused = value;
-            Time.timeScale = value ? 0f : 1f;
         }
 
         public void Restart()

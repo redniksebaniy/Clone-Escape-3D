@@ -1,32 +1,35 @@
 using UnityEngine.Events;
 
-public class LevelController
+namespace CloneEscape.LevelBase
 {
-    private static LevelController instance;
-    public static LevelController Instance 
+    public class LevelController
     {
-        get
+        private static LevelController instance;
+        public static LevelController Instance
         {
-            if (instance is null)
+            get
             {
-                instance = new LevelController();
+                if (instance is null)
+                {
+                    instance = new LevelController();
+                }
+
+                return instance;
             }
 
-            return instance;
+            set
+            {
+                instance = value;
+            }
         }
 
-        set
+        public UnityEvent OnPlayerWin;
+        public UnityEvent OnPlayerLose;
+
+        private LevelController()
         {
-            instance = value;
+            OnPlayerWin = new UnityEvent();
+            OnPlayerLose = new UnityEvent();
         }
-    }
-
-    public UnityEvent OnPlayerWin;
-    public UnityEvent OnPlayerLose;
-
-    private LevelController()
-    {
-        OnPlayerWin  = new UnityEvent();
-        OnPlayerLose = new UnityEvent();
     }
 }

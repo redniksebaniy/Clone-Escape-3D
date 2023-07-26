@@ -1,4 +1,5 @@
 using UnityEngine;
+using CloneEscape.LevelBase;
 
 namespace CloneEscape.PlayerBehavours
 {

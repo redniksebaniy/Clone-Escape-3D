@@ -1,6 +1,8 @@
 using UnityEngine;
 using DG.Tweening;
 using CloneEscape.PlayerBehavours;
+using CloneEscape.Audio;
+using CloneEscape.LevelBase;
 
 public class CameraMovement : MonoBehaviour
 {

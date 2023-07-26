@@ -1,36 +1,39 @@
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource), typeof(Rigidbody))]
-public class BoxAudioManager : MonoBehaviour
+namespace CloneEscape.Audio
 {
-    [SerializeField]
-    private AudioClip _moveClip;
-
-    private AudioSource _audioSource;
-    private Rigidbody _rigidbody;
-
-    void Start()
+    [RequireComponent(typeof(AudioSource), typeof(Rigidbody))]
+    public class BoxAudioManager : MonoBehaviour
     {
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.clip = _moveClip;
+        [SerializeField]
+        private AudioClip _moveClip;
 
-        _rigidbody = GetComponent<Rigidbody>();
-    }
+        private AudioSource _audioSource;
+        private Rigidbody _rigidbody;
 
-    void Update()
-    {
-        if (AudioManager.Instance.IsMuted) return;
-
-        float magnitude = _rigidbody.velocity.magnitude;
-
-        if (!_audioSource.isPlaying && magnitude > 0 )
+        void Start()
         {
-            _audioSource.pitch = Random.Range(0.95f, 1.05f);
-            _audioSource.Play();
+            _audioSource = GetComponent<AudioSource>();
+            _audioSource.clip = _moveClip;
+
+            _rigidbody = GetComponent<Rigidbody>();
         }
-        else if (_audioSource.isPlaying && magnitude < 0.1f)
+
+        void Update()
         {
-            _audioSource.Stop();
+            if (AudioManager.Instance.IsMuted) return;
+
+            float magnitude = _rigidbody.velocity.magnitude;
+
+            if (!_audioSource.isPlaying && magnitude > 0)
+            {
+                _audioSource.pitch = Random.Range(0.95f, 1.05f);
+                _audioSource.Play();
+            }
+            else if (_audioSource.isPlaying && magnitude < 0.1f)
+            {
+                _audioSource.Stop();
+            }
         }
     }
 }

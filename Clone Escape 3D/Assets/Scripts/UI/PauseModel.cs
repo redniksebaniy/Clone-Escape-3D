@@ -1,7 +1,19 @@
+using UnityEngine;
+
 namespace CloneEscape.UI.Model
 {
     public class PauseModel : SoundModel
     {
-        public bool IsPaused = false;
+        private bool isPaused = false;
+        public bool IsPaused
+        {
+            get { return isPaused; }
+            set 
+            { 
+                isPaused = value;
+                Time.timeScale = value ? 0f : 1f;
+            }
+
+        }
     }
 }

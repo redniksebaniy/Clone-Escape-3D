@@ -1,48 +1,51 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-[RequireComponent(typeof(AudioSource))]
-public class AudioManager : MonoBehaviour
+namespace CloneEscape.Audio
 {
-    private static AudioManager instance;
-    public static AudioManager Instance
+    [RequireComponent(typeof(AudioSource))]
+    public class AudioManager : MonoBehaviour
     {
-        get
+        private static AudioManager instance;
+        public static AudioManager Instance
         {
-            return instance;
-        }
-    }
-
-    private AudioMixer _audioMixer;
-
-    public AudioSource AudioSource { get; private set; }
-
-    public const string IS_MUTE = "Is Mute";
-    private const string CUTOFF_FREQ = "cutoff frequency";
-    
-    public bool IsMuted
-    {
-        get
-        {
-            return AudioSource.mute;
+            get
+            {
+                return instance;
+            }
         }
 
-        set
+        private AudioMixer _audioMixer;
+
+        public AudioSource AudioSource { get; private set; }
+
+        public const string IS_MUTE = "Is Mute";
+        private const string CUTOFF_FREQ = "cutoff frequency";
+
+        public bool IsMuted
         {
-            AudioSource.mute = value;
+            get
+            {
+                return AudioSource.mute;
+            }
+
+            set
+            {
+                AudioSource.mute = value;
+            }
         }
-    }
 
-    private void Awake()
-    {
-        instance = this;
-        AudioSource = GetComponent<AudioSource>();
-        AudioSource.mute = PlayerPrefs.GetInt(IS_MUTE, 0) > 0;
-        _audioMixer = AudioSource.outputAudioMixerGroup.audioMixer;
-    }   
+        private void Awake()
+        {
+            instance = this;
+            AudioSource = GetComponent<AudioSource>();
+            AudioSource.mute = PlayerPrefs.GetInt(IS_MUTE, 0) > 0;
+            _audioMixer = AudioSource.outputAudioMixerGroup.audioMixer;
+        }
 
-    public void TooglePauseEffect(bool value)
-    {
-        _audioMixer.SetFloat(CUTOFF_FREQ, value ? 350 : 22000);
+        public void TooglePauseEffect(bool value)
+        {
+            _audioMixer.SetFloat(CUTOFF_FREQ, value ? 350 : 22000);
+        }
     }
 }
